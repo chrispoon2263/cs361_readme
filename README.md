@@ -29,16 +29,16 @@
                 - send_request(url)
                   
         - Example 2:
-            - curl --location 'http://flip1.engr.oregonstate.edu:63861/api/v1.0.0/calculate?input_1=x^2+2 - x^3&input_2=x%5E5'
+            - curl --location 'http://flip1.engr.oregonstate.edu:63861/api/v1.0.0/calculate?input_1=x%5E2%2B2*x%5E5&input_2=x%5E5'
                    
             - HTTP GET Request info:
                 - Host: "http://flip1.engr.oregonstate.edu"
                 - Port: "63861"
                 - Path: "/api/v1.0.0/calculate?"
                 - Params: {
-                    - input_1: "x^2+2 - x^3"
+                    - input_1: "x%5E2%2B2*x%5E5"
                     - input_2: "x%5E5"} 
-                - url = 'http://flip1.engr.oregonstate.edu:63861/api/v1.0.0/calculate/input_1=x^2+2 - x^3&input_2=x%5E5'
+                - url = 'http://flip1.engr.oregonstate.edu:63861/api/v1.0.0/calculate?input_1=x%5E2%2B2*x%5E5&input_2=x%5E5'
                 - send_request(url)
   
     - B) Receiving Reponse back:
