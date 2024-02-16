@@ -8,11 +8,11 @@
             - NOTE: Only use polynomial functions or you will get a 400 status bad request.
             - NOTE: You can use "x^2" for poylnomials  or URL encodings "x%5E2".
             - NOTE: For polynomials like "x^2+3+2x^2" which is the equivalent of "x%5E2%2B3%2B2x%5E2" YOU MUST USE URL ENCODINGS FORM for longer inputs.
-                 ^     = %5E
-                 space = %20
-                 +     = %2B
-                 -     = %2D
-                 *     = %2A
+                 - "^"     = %5E
+                 - " " = %20
+                 - "+"     = %2B
+                 - "-"      = %2D
+                 - "*"     = %2A
                  (https://www.tutorialspoint.com/html/html_url_encoding.htm)
                   
         -  Example 1:
