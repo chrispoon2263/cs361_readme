@@ -6,7 +6,7 @@
          - The API endpoint will allow for two parameters. input_1 and input_2.
             - NOTE: Only use functions of the variable "x" for both or else you will get a 400 status bad request.
             - NOTE: Only use polynomial functions or you will get a 400 status bad request
-            - In addition, you can put "x^2" or you can build the query using URL encodings so "x^2" would equivalent to "x%5E2".
+            - In addition, you can put "x^2" or you can build the query using URL encodings so "x^2" would be equivalent to "x%5E2".
                 - (https://www.tutorialspoint.com/html/html_url_encoding.htm)
                   
         -  Example 1:
