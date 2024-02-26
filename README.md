@@ -1,57 +1,42 @@
 - Directions for sending requests and receiving response from calculate microservice
-    - The API endpoint is designed to take in two input parameters input_1 and input_2 in the form of a poylnomial functions. The server will use the FFT/IFFT algorithm to multiply the functions and returns back a single poylnomial function in json format.
-     - NOTE MAKE SURE YOU ARE LOGGED ONTO OSU VPN
-       
-    - A) Sending HTTP GET Request:
-         - The API endpoint will allow for two parameters. input_1 and input_2.
-            - NOTE: Only use functions of the variable "x" for both or else you will get a 400 status bad request.
-            - NOTE: Only use polynomial functions or you will get a 400 status bad request.
-            - NOTE: You can use "x^2" for poylnomials  or URL encodings "x%5E2".
-            - NOTE: For polynomials like "x^2+3+2x^2" which is the equivalent of "x%5E2%2B3%2B2x%5E2" YOU MUST USE URL ENCODINGS FORM for longer inputs.
-                 - "^"     = %5E
-                 - " " = %20
-                 - "+"     = %2B
-                 - "-"      = %2D
-                 - "*"     = %2A
-                 (https://www.tutorialspoint.com/html/html_url_encoding.htm)
-                  
-        -  Example 1:
-            - curl --location 'http://flip1.engr.oregonstate.edu:63861/api/v1.0.0/calculate?input_1=x^3&input_2=x^5'
-         
-            - HTTP GET Request info:
-                - Host: "http://flip1.engr.oregonstate.edu"
-                - Port: "63861"
-                - Path: "/api/v1.0.0/calculate?"
-                - Params: {
-                    - input_1: "x^3"
-                    - input_2: "x^5"}
-                - url = 'http://flip1.engr.oregonstate.edu:63861/api/v1.0.0/calculate?input_1=x^3&input_2=x^5'
-                - send_request(url)
-                  
-        - Example 2:
-            - curl --location 'http://flip1.engr.oregonstate.edu:63861/api/v1.0.0/calculate?input_1=x%5E2%2B2*x%5E5&input_2=x%5E5'
-                   
-            - HTTP GET Request info:
-                - Host: "http://flip1.engr.oregonstate.edu"
-                - Port: "63861"
-                - Path: "/api/v1.0.0/calculate?"
-                - Params: {
-                    - input_1: "x%5E2%2B2*x%5E5"
-                    - input_2: "x%5E5"} 
-                - url = 'http://flip1.engr.oregonstate.edu:63861/api/v1.0.0/calculate?input_1=x%5E2%2B2*x%5E5&input_2=x%5E5'
-                - send_request(url)
-  
-    - B) Receiving Reponse back:
-        - Once a request is made to receive back the response use a variable and convert the data into json
-        - Use a dictionary data structure and look for the "result" key to get back the value
-        - Response example:
-            - response = send_request(url)
-            - response = response.json()
-            - answer = response["result]
+    - Overview 
+        - You will create a microservice server that will send out two random poylnomial functions for whenever a user clicks the random button on the UI microservice.
+        - NOTE MAKE SURE YOU ARE LOGGED ONTO OSU VPN!
+        - UI microservice: http://flip1.engr.oregonstate.edu:63861/
+
+    - A) Create Server:
+        - You will need to create a server listening on PORT 65398 on the Flip 1 servers
+        - IMPORTANT to make sure to build the server on Flip 1 since the UI microservice will only create a connection on FLIP 1 with a port of 65398
+        - The UI microservice will be hosted on the flip1 servers
+        - Once a user clicks the random button, my microservice will try to make a connection on PORT 65398 and request 2 polynomial functions
+        -  Example:
+               - app.run(host='localhost', port=65398)
+        - If the PORT is taken by another student send me a message, and I will pick another port.
+
+    - B) Create 2 random functions and wrap into a json object:
+         - It is recommended to have a data structure or list to hold all your random functions
+             - ex: random_list = ["x^2", "x^3", "x + 1", "x + x + x", "x^5"]
+         - Randomly get two functions from the list and wrap into json:
+             - Example:
+                 - input_1 = get_random_function(random_list)
+                 - input_2 = get_random)function(random_list)
+                 - data = { input_1: "x^2", input_2: "x^3"}
+                 - json_data = jsonify(data)
+                 - It is important make sure the key in the key/value pair is "input_1" and "input_2" respectively since I will be using those as key's on my end
+               
+    - C) Send out message
+          - Have the server send out the message
+              send_response(data, localhost, port)     
 
 
-    - C) UML Sequence Diagram and API documentation
-        - API Documentation
-            - https://documenter.getpostman.com/view/23973343/2sA2r6YQG7
+    - D) UML Sequence Diagram
         - UML sequence diagram via Lucidchart 
             - https://lucid.app/lucidchart/4f7f271f-dfd9-4e4d-8098-d71a9c222b90/edit?viewport_loc=-73%2C1219%2C3602%2C1786%2C0_0&invitationId=inv_58bf306c-930f-43db-af31-113b6fc7357f
+         
+    - E) TIPS
+        - Use a webframework like flask to create a quick server in less 10 lines of code
+            - https://github.com/osu-cs340-ecampus/flask-starter-app
+        - Recommend to create a fake route that does not lead to any website but just sits and listens
+            - Then create the 2 random functions
+            - Then jsonify
+            - Then return the json object back 
